@@ -20,10 +20,7 @@ extern "C"
 #endif
 
 #include <xc.h>
-//#include <stdio.h>
 #include <stdbool.h>
-  
-#include "system.h"
   
 //define these!
 #define SOFTUARTDIR (TRISAbits.TRISA0)

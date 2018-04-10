@@ -6,7 +6,7 @@
 #include <xc.h>
 
 #include "../include/assert.h"
-#include "../include/libc.h"
+#include "../include/dlibc.h"
 
 
 void main(void)

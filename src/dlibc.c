@@ -1,12 +1,11 @@
 
 
-#include "../include/libc.h"
+#include "../include/dlibc.h"
 
 void dprintstr(const unsigned char *str)
 {
 	for(; *str; str++)
-		dputchar(*str);
-		
+		dputchar(*str);		
 }
 
 

@@ -1,7 +1,4 @@
 /* 
- * 
- * take a look at:
- https://nicisdigital.wordpress.com/2011/07/05/assertions-in-microcontrollers/#comment-2329
  */
 
 #ifndef ASSERT_H
@@ -19,7 +16,7 @@ extern "C"
 #define USING_SOFT_UART
 
 #ifdef USING_SOFT_UART
-	#include "libc.h"
+	#include "dlibc.h"
 #endif
 
 #include <xc.h>
