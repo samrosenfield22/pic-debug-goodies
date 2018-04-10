@@ -1,7 +1,8 @@
 /*
+ pic-debug-goodies
+ PIC code for easy debugging
+ Written by Sam Rosenfield
  */
-
-
 
 #include <xc.h>
 
@@ -21,6 +22,7 @@ void main(void)
 	assertResetCondition();
 	
 	//application code begins here!
+	dprintstr("starting execution...\n\n");
 	
 	
 	return;
