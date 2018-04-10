@@ -45,3 +45,11 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Project-specific directories to ignore
+build/
+debug/
+dist/
+Makefile
+nbproject/
+
