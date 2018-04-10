@@ -22,7 +22,7 @@ extern "C"
 #include <xc.h>
 #include <string.h>
 
-  
+//function prototypes
 void assertionFailure(const char *, const char *, unsigned long);
 void assertResetCondition(void);
 

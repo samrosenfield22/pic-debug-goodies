@@ -8,7 +8,6 @@ void dprintstr(const unsigned char *str)
 		dputchar(*str);		
 }
 
-
 void dprintf(const char *fmt, ...)
 {
 	int i;
@@ -85,7 +84,7 @@ void dprintnum(int num)
 		//multiply num by 2^32/10 (0x1999999A), then divide (shift) by 2^32
 		num = ((long long)(num)*0x1999999A)>>32;
 		
-		//lastNum - num*10
+		//digits[cnt] = lastNum - num*10
 		digits[cnt] = lastNum - ((num<<3) + (num<<1));
 		
 		cnt++;
@@ -97,8 +96,4 @@ void dprintnum(int num)
 		dputchar(digits[cnt]+'0');
 }
 
-/*void dputchar(unsigned char c)
-{
-	softUartWriteChar(c);
-}*/
 

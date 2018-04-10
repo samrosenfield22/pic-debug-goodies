@@ -1,8 +1,4 @@
 /* 
- * File:   libc.h
- * Author: swg
- *
- * Created on April 8, 2018, 4:14 AM
  */
 
 #ifndef LIBC_H
@@ -19,12 +15,10 @@ extern "C"
 
 #define dputchar softUartWriteChar
   
+//function prototypes
 void dprintstr(const unsigned char *);
 void dprintnum(int);
 void dprintf(const char *, ...);
-
-//void dputchar(unsigned char);
-
 
 
 #ifdef	__cplusplus

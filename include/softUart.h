@@ -26,12 +26,12 @@ extern "C"
 //define these!
 #define SOFTUARTDIR (TRISAbits.TRISA0)
 #define SOFTUARTPIN (LATAbits.LATA0)
+#define DELAYVAL	(1667)			//calculate this -- it should be FOSC/baud
+									//where FOSC is the oscillator frequency, and
+									//baud is the desired baud rate
   
-#define DELAYVAL	(1667)
-  
+//function prototypes
 void softUartSetup(void);
-//void softUartWriteChar(unsigned char);
-//void softUartWriteString(const unsigned char *);
 void softUartWriteChar(unsigned char);
 void softUartWriteBit(bool);
 
