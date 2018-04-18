@@ -55,10 +55,16 @@ void assertionFailure(const char *condition, const char *file, unsigned long lin
  Put this at the beginning of your main() function -- if the MCU reset due to a
  problematic reset condition (such as a stack overflow), this will catch it
  */
+/*using the bit's alias alone (i.e. STKOVF) uses less memory than using it in the struct/
+ bit-field (i.e. (PCONbits.STKOVF). is there any difference/problem w doing this?*/
 void assertResetCondition()
 {
-	assert(!PCONbits.STKOVF);	//a stack overflow reset occurred
-	assert(!PCONbits.STKUNF);	//a stack underflow reset occurred
-	assert(PCONbits.nRWDT);		//a watchdog timer reset occurred
+	//assert(!PCONbits.STKOVF);	//a stack overflow reset occurred
+	assert(!STKOVF);
+	//assert(!PCONbits.STKUNF);	//a stack underflow reset occurred
+	assert(!STKUNF);
+	//assert(!(PCON & 0b11000000));
+	//assert(PCONbits.nRWDT);		//a watchdog timer reset occurred
+	assert(nRWDT);
 	//assert(PCONbits.nBOR);		//a brown-out reset occurred
 }

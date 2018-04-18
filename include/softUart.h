@@ -29,6 +29,7 @@ extern "C"
 #define DELAYVAL	(1667)			//calculate this -- it should be FOSC/baud
 									//where FOSC is the oscillator frequency, and
 									//baud is the desired baud rate
+									//note that DELAYVAL must be less than 32767
   
 //function prototypes
 void softUartSetup(void);

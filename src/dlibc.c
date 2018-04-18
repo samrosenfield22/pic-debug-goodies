@@ -99,17 +99,17 @@ void dprintnum(int num)
 	//display each digit
 	for(cnt--; cnt>=0; cnt--)
 		dputchar(digits[cnt]+'0');
-	//cnt--;
-	/*while(cnt>=0)
-	  {
-		dputchar(digits[cnt]+'0');
-		cnt--;
-	  }*/
-	/*while(cnt>0)
-	  {
-		//cnt--;
-		dputchar(digits[--cnt]+'0');
-	  }*/
 }
+
+/*void dprintbin(void *data, unsigned short bytes)
+{
+	for(; bytes; bytes--)
+	{
+		//print the byte
+		for(unsigned char i=0x80; i; i>>=1)
+			dputchar((*data) & i? '1' : '0');
+		data++;
+	}
+}*/
 
 

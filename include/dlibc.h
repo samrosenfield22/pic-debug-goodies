@@ -1,8 +1,8 @@
 /* 
  */
 
-#ifndef LIBC_H
-#define	LIBC_H
+#ifndef DLIBC_H
+#define	DLIBC_H
 
 #ifdef	__cplusplus
 extern "C"
@@ -25,5 +25,5 @@ void dprintf(const char *, ...);
 }
 #endif
 
-#endif	/* LIBC_H */
+#endif	/* DLIBC_H */
 
