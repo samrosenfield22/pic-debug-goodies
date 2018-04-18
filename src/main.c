@@ -22,7 +22,7 @@ void main(void)
 	assertResetCondition();
 	
 	//application code begins here!
-	dprintstr("starting execution...\n\n");
+	dputs("starting execution...\n\n");
 	
 	
 	return;

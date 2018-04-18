@@ -16,7 +16,7 @@ extern "C"
 #define dputchar softUartWriteChar
   
 //function prototypes
-void dprintstr(const unsigned char *);
+void dputs(const unsigned char *);
 void dprintnum(int);
 void dprintf(const char *, ...);
 

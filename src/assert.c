@@ -19,11 +19,11 @@ void assertionFailure(const char *condition, const char *file, unsigned long lin
 	//display ...
 	#ifdef USING_SOFT_UART
 		//dprintf("Failed assertion: %s\nin file %s, line %d\n", condition, file, line);
-		dprintstr("Failed assertion: ");
-		dprintstr(condition);
-		dprintstr("\nin file ");
-		dprintstr(file);
-		dprintstr(", line ");
+		dputs("Failed assertion: ");
+		dputs(condition);
+		dputs("\nin file ");
+		dputs(file);
+		dputs(", line ");
 		dprintnum(line);
 		dputchar('\n');
 	#else
@@ -45,8 +45,8 @@ void assertionFailure(const char *condition, const char *file, unsigned long lin
 	//
 	
 	//halt execution
-	//if the debugger gets stuck here, check the values of dCondition, dLine
-	//and dFile for diagnostic information
+	//if the debugger gets stuck here, and a soft UART debug port is not being
+	// used, check the values of dCondition, dLine and dFile for diagnostic information
 	//(Window->Debugging->Variables)
 	while(1);
 }

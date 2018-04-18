@@ -2,10 +2,10 @@
 
 #include "../include/dlibc.h"
 
-void dprintstr(const unsigned char *str)
+void dputs(const unsigned char *str)
 {
 	for(; *str; str++)
-		dputchar(*str);		
+		dputchar(*str);
 }
 
 void dprintf(const char *fmt, ...)
@@ -33,8 +33,9 @@ void dprintf(const char *fmt, ...)
 					break;
 				case 's':
 					s = va_arg(args, char*);
-					for(; *s; s++)
-						dputchar(*s);
+					//for(; *s; s++)
+					//	dputchar(*s);
+					dputs(s);
 					break;
 				//case 'x':
 				//	int x = va_arg(args, int);
@@ -85,7 +86,11 @@ void dprintnum(int num)
 		num = ((long long)(num)*0x1999999A)>>32;
 		
 		//digits[cnt] = lastNum - num*10
-		digits[cnt] = lastNum - ((num<<3) + (num<<1));
+		//digits[cnt] = lastNum - ((num<<3) + (num<<1));
+		//digits[cnt] = lastNum - (num<<3) + num + num;
+		digits[cnt] = lastNum - (num+num+num+num+num+num+num+num+num+num);	//ugly, but amazingly, uses less
+									//memory than digits[cnt] = lastNum - ((num<<3) + (num<<1));
+		//digits[cnt] = lastNum - 10*num;
 		
 		cnt++;
 	}
@@ -94,6 +99,17 @@ void dprintnum(int num)
 	//display each digit
 	for(cnt--; cnt>=0; cnt--)
 		dputchar(digits[cnt]+'0');
+	//cnt--;
+	/*while(cnt>=0)
+	  {
+		dputchar(digits[cnt]+'0');
+		cnt--;
+	  }*/
+	/*while(cnt>0)
+	  {
+		//cnt--;
+		dputchar(digits[--cnt]+'0');
+	  }*/
 }
 
 
