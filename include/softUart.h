@@ -7,8 +7,7 @@
 	* the user is required to calculate this value in order to reduce the softUart's memory overhead
  * any program wishing to use dputchar()/dprintf()/other dlibc functions to send data over
  the TX line must first call softUartSetup()
- * in order for assert() to automatically print debugging info, uncomment the #definition of
- USING_SOFT_UART (in debugSettings.h)
+ * to disable the soft uart port, comment the #definition of USING_SOFT_UART (in debugSettings.h)
  
  */
 

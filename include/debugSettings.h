@@ -17,14 +17,14 @@ extern "C"
 //comment this out if there is no software uart/debug port
 #define USING_SOFT_UART
   
-//********************   soft UART port settings   ********************//
+//********************   soft UART settings   ********************//
 //define the port pin for the uart debug port
 #define SOFTUARTDIR (TRISAbits.TRISA0)
 #define SOFTUARTPIN (LATAbits.LATA0)
   
 //calculate this -- it should be FOSC/baud, where FOSC is the oscillator
 //frequency and baud is the desired baud rate
-//note that DELAYVAL must be less than 32767
+//note that DELAYVAL must be less than or equal to 32767
 #define DELAYVAL	(1667)
 									
 

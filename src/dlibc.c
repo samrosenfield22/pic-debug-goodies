@@ -69,44 +69,6 @@ void dprintf(const char *fmt, ...)
 	va_end(args);
 }
 
-/*void dprintnum(int num)
-{
-	char digits[10];
-	int lastNum;
-	char cnt=0;
-	
-	//if the number is negative, take its 2's complement to invert it
-	if(num<0)
-	{
-		num = (~num)+1;
-		dputchar('-');
-	}
-	
-	//split the number into digits
-	do
-	{
-		lastNum = num;
-		
-		//divide num by 10
-		//multiply num by 2^32/10 (0x1999999A), then divide (shift) by 2^32
-		num = ((long long)(num)*0x1999999A)>>32;
-		
-		//digits[cnt] = lastNum - num*10
-		//digits[cnt] = lastNum - ((num<<3) + (num<<1));
-		//digits[cnt] = lastNum - (num<<3) + num + num;
-		digits[cnt] = lastNum - (num+num+num+num+num+num+num+num+num+num);	//ugly, but amazingly, uses less
-									//memory than digits[cnt] = lastNum - ((num<<3) + (num<<1));
-		//digits[cnt] = lastNum - 10*num;
-		
-		cnt++;
-	}
-	while(num);
-	
-	//display each digit
-	for(cnt--; cnt>=0; cnt--)
-		dputchar(digits[cnt]+'0');
-}*/
-
 void dprintnum(int num, bool sign)
 {
 	unsigned int weight;
@@ -136,7 +98,7 @@ void dprintnum(int num, bool sign)
 		if(curDigit)
 			numberStarted = true;
 		if(numberStarted)
-			dputchar(curDigit+0x30);
+			dputchar(curDigit+'0');
 	}
 	
 	//if no digits were found, it's because the passed value is a zero
