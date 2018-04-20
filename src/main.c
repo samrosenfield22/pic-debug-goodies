@@ -24,6 +24,5 @@ void main(void)
 	//application code begins here!
 	dputs("starting execution...\n\n");
 	
-	
 	return;
 }

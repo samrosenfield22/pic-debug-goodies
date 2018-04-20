@@ -9,18 +9,15 @@ extern "C"
 {
 #endif
 
-//uncomment this to disable assertions
-//#define NDEBUG
-  
-//comment this out if there is no software uart/debug port
-#define USING_SOFT_UART
-
-#ifdef USING_SOFT_UART
-	#include "dlibc.h"
-#endif
 
 #include <xc.h>
 #include <string.h>
+  
+#include "debugSettings.h"
+  
+#ifdef USING_SOFT_UART
+	#include "dlibc.h"
+#endif
 
 //function prototypes
 void assertionFailure(const char *, const char *, unsigned long);
