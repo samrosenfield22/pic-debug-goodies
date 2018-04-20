@@ -15,9 +15,12 @@ extern "C"
 
 #define dputchar softUartWriteChar
   
+#define SIGNED true
+#define UNSIGNED false
+  
 //function prototypes
-void dputs(const unsigned char *);
-void dprintnum(int);
+void dputs(const char *);
+void dprintnum(int, bool);
 void dprintf(const char *, ...);
 
 

@@ -11,29 +11,28 @@ void assertionFailure(const char *condition, const char *file, unsigned long lin
 	//disable all interrupts
 	GIE = 0b0;
 	
-	
 	//volatile const char *dCondition = condition;
 	//volatile const char *dFile = file;
 	
 	
 	//display ...
 	#ifdef USING_SOFT_UART
-		//dprintf("Failed assertion: %s\nin file %s, line %d\n", condition, file, line);
-		dputs("Failed assertion: ");
+		//dprintf("Failed assert: %s\nfile %s, line %d\n", condition, file, line);
+		dputs("Failed assert: ");
 		dputs(condition);
-		dputs("\nin file ");
+		dputs("\nfile ");
 		dputs(file);
 		dputs(", line ");
-		dprintnum(line);
+		dprintnum(line, UNSIGNED);
 		dputchar('\n');
 	#else
 		//collect debugging information to view from the variables console
+		//since the "Variables/watches" viewer doesn't show dereferenced pointers
+		//(why?), this copies the diagnostic strings into arrays to be viewed
 		volatile unsigned long dLine = line;
 		volatile char dCondition[24];
-		volatile char dFile[16];
-
-		memset(dCondition, 0, sizeof(dCondition));
-		memset(dFile, 0, sizeof(dFile));
+		volatile char dFile[24];
+		
 		strncpy(dCondition, condition, sizeof(dCondition)-1);
 		strncpy(dFile, file, sizeof(dFile)-1);
 	#endif
@@ -41,13 +40,16 @@ void assertionFailure(const char *condition, const char *file, unsigned long lin
 	//add code here to indicate that an assertion failure occurred
 	//(ex. light a LED or something)
 	
-	//add a backtrace here, if possible
-	//
-	
 	//halt execution
 	//if the debugger gets stuck here, and a soft UART debug port is not being
 	// used, check the values of dCondition, dLine and dFile for diagnostic information
 	//(Window->Debugging->Variables)
+		
+	//to view a backtrace, go to:
+	//Window->PIC Memory Views->Hardware Stack
+	//note that this does not show function arguments or local variables, only
+	//function names and return addresses
+	//(does this only work w the simulator? test it)
 	while(1);
 }
 
@@ -55,8 +57,8 @@ void assertionFailure(const char *condition, const char *file, unsigned long lin
  Put this at the beginning of your main() function -- if the MCU reset due to a
  problematic reset condition (such as a stack overflow), this will catch it
  */
-/*using the bit's alias alone (i.e. STKOVF) uses less memory than using it in the struct/
- bit-field (i.e. (PCONbits.STKOVF). is there any difference/problem w doing this?*/
+/*using the bits' aliases alone (i.e. STKOVF) uses less memory than using them in the structs/
+ bit-fields (i.e. (PCONbits.STKOVF). is there any difference/problem w doing this?*/
 void assertResetCondition()
 {
 	//assert(!PCONbits.STKOVF);	//a stack overflow reset occurred

@@ -31,11 +31,12 @@ extern "C"
 									//baud is the desired baud rate
 									//note that DELAYVAL must be less than 32767
   
+#define softUartSetup() (SOFTUARTDIR=0b0)
+  
 //function prototypes
-void softUartSetup(void);
+//void softUartSetup(void);
 void softUartWriteChar(unsigned char);
 void softUartWriteBit(bool);
-
 
 #ifdef	__cplusplus
 }

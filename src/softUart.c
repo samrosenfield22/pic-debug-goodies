@@ -2,10 +2,12 @@
 
 #include "../include/softUart.h"
 
-void softUartSetup()
+//softUartSetup() is currently defined as a macro -- if it ends up doing more than just
+//clearing the SOFTUARTDIR TRIS bit, we'll add this back in
+/*void softUartSetup()
 {
 	SOFTUARTDIR = 0b0;
-}
+}*/
 
 //dputchar() is an alias for softUartWriteChar
 void softUartWriteChar(unsigned char byte)
