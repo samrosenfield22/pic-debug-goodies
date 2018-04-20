@@ -11,11 +11,9 @@ void assertionFailure(const char *condition, const char *file, unsigned long lin
 	//disable all interrupts
 	GIE = 0b0;
 	
-	//volatile const char *dCondition = condition;
-	//volatile const char *dFile = file;
-	
-	
-	//display ...
+	//display/store information about the failed assertion. if soft uart is in use,
+	//this will be printed to the debug port; if not, it will be stored in local
+	//variables (dLine, dCondition and dFile) to be viewed in MPLABX
 	#ifdef USING_SOFT_UART
 		//dprintf("Failed assert: %s\nfile %s, line %d\n", condition, file, line);
 		dputs("Failed assert: ");
@@ -27,7 +25,7 @@ void assertionFailure(const char *condition, const char *file, unsigned long lin
 		dputchar('\n');
 	#else
 		//collect debugging information to view from the variables console
-		//since the "Variables/watches" viewer doesn't show dereferenced pointers
+		//since the "Variables/watches" viewers don't show dereferenced pointers
 		//(why?), this copies the diagnostic strings into arrays to be viewed
 		volatile unsigned long dLine = line;
 		volatile char dCondition[24];
@@ -42,7 +40,7 @@ void assertionFailure(const char *condition, const char *file, unsigned long lin
 	
 	//halt execution
 	//if the debugger gets stuck here, and a soft UART debug port is not being
-	// used, check the values of dCondition, dLine and dFile for diagnostic information
+	//used, check the values of dCondition, dLine and dFile for diagnostic information
 	//(Window->Debugging->Variables)
 		
 	//to view a backtrace, go to:
