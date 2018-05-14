@@ -15,6 +15,9 @@ extern "C"
 //#define NDEBUG
   
 //comment this out if there is no software uart/debug port
+//upon failed assertions, instead of printing to the debug port, the failure
+//condition, file name and line number will be stored in variables so that they
+//can be viewed using the debugger
 #define USING_SOFT_UART
   
 //********************   soft UART settings   ********************//
