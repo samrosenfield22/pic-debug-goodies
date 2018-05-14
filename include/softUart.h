@@ -28,8 +28,8 @@ extern "C"
   
 //function prototypes
 //void softUartSetup(void);
-void softUartWriteChar(unsigned char);
-void softUartWriteBit(bool);
+void softUartWriteChar(char);
+static void softUartWriteBit(bool);
 
 #ifdef	__cplusplus
 }

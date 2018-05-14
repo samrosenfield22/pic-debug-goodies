@@ -1,6 +1,6 @@
 # pic-debug-goodies #
 
-This is a small library of debugging/instrumentation functions for PIC microcontrollers.
+pic-debug-goodies is a small library of debugging/instrumentation functions for PIC microcontrollers.
 Its purpose is to provide a easy, painless way to debug firmware, while being as 
 flexible and low-memory as possible. A sample program showing the use of these library functions can be found in src/main.c.
 

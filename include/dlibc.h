@@ -20,8 +20,10 @@ extern "C"
   
 //function prototypes
 void dputs(const char *);
-void dprintnum(int, bool);
+void dprintnum(short, bool);
 void dprintf(const char *, ...);
+void dprintbin(char);
+void dprinthex(unsigned char);
 
 
 #ifdef	__cplusplus

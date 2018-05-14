@@ -6,7 +6,7 @@
 /*
  This function is called when assert() fails. 
  */
-void assertionFailure(const char *condition, const char *file, unsigned long line)
+static void assertionFailure(const char *condition, const char *file, unsigned long line)
 {	
 	//disable all interrupts
 	GIE = 0b0;
@@ -15,14 +15,14 @@ void assertionFailure(const char *condition, const char *file, unsigned long lin
 	//this will be printed to the debug port; if not, it will be stored in local
 	//variables (dLine, dCondition and dFile) to be viewed in MPLABX
 	#ifdef USING_SOFT_UART
-		//dprintf("Failed assert: %s\nfile %s, line %d\n", condition, file, line);
-		dputs("Failed assert: ");
+		//dprintf("Failed assert: %s\r\nfile %s, line %d\r\n", condition, file, line);
+		dputs("\r\nFailed assert: ");
 		dputs(condition);
-		dputs("\nfile ");
+		dputs("\r\nfile ");
 		dputs(file);
 		dputs(", line ");
 		dprintnum(line, UNSIGNED);
-		dputchar('\n');
+		dputs("\r\n");
 	#else
 		//collect debugging information to view from the variables console
 		//since the "Variables/watches" viewers don't show dereferenced pointers
@@ -33,6 +33,7 @@ void assertionFailure(const char *condition, const char *file, unsigned long lin
 		
 		strncpy(dCondition, condition, sizeof(dCondition)-1);
 		strncpy(dFile, file, sizeof(dFile)-1);
+		
 	#endif
 	
 	//add code here to indicate that an assertion failure occurred
@@ -59,12 +60,41 @@ void assertionFailure(const char *condition, const char *file, unsigned long lin
  bit-fields (i.e. (PCONbits.STKOVF). is there any difference/problem w doing this?*/
 void assertResetCondition()
 {
-	//assert(!PCONbits.STKOVF);	//a stack overflow reset occurred
-	assert(!STKOVF);
-	//assert(!PCONbits.STKUNF);	//a stack underflow reset occurred
-	assert(!STKUNF);
-	//assert(!(PCON & 0b11000000));
-	//assert(PCONbits.nRWDT);		//a watchdog timer reset occurred
-	assert(nRWDT);
-	//assert(PCONbits.nBOR);		//a brown-out reset occurred
+	//check for normal reset conditions
+	/*if(!PCONbits.nRMCLR);	//MCLR reset
+	{
+		//dputs("MCLR reset\r\n");
+		PCONbits.nRMCLR = 0b1;
+		return;
+	}
+	if((STATUS==0b00011000) && ((PCON&0b00001100)==0b00001100) && (((~PCON)&0b11000010)==0b11000010))	//power-on reset
+	{
+		//dputs("POR reset\r\n");
+		PCONbits.nPOR = 0b1;
+		return;
+	}*/
+	
+	//an erroneous reset condition occurred, dump STATUS and PCON
+	//for information on interpreting these results, consult the "reset" chapter for your MCU's datasheet
+	dputs("\r\nreset error\r\nSTATUS:\t0b");
+	dprintbin(STATUS);
+	dputs(" (0x");
+	dprinthex(STATUS);
+	dputs(")\r\nPCON:\t0b");
+	dprintbin(PCON);
+	dputs(" (0x");
+	dprinthex(PCON);
+	dputs(")\r\n");
+  
+	//check for error reset conditions
+	assert(!STKOVF);	//a stack overflow reset occurred
+	assert(!STKUNF);	//a stack underflow reset occurred
+	assert(nRWDT);		//a watchdog timer reset occurred
+
+	//a brown-out reset occurred
+	if(((STATUS&0b00011000)==0b00011000) && ((PCON&0b00001100)==0b00001100) && (!PCONbits.nBOR))
+	{
+		PCONbits.nBOR = 0b1;
+		assert(0);
+	}
 }

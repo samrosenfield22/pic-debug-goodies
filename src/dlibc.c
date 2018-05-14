@@ -69,9 +69,9 @@ void dprintf(const char *fmt, ...)
 	va_end(args);
 }
 
-void dprintnum(int num, bool sign)
+void dprintnum(short num, bool sign)
 {
-	unsigned int weight;
+	unsigned short weight;
 	char curDigit;
 	bool numberStarted = false;
 	
@@ -83,15 +83,16 @@ void dprintnum(int num, bool sign)
 		dputchar('-');
 	}
 	
-	for(char digits=9; digits>=0; digits--)
+	
+	for(char digits=5; digits; digits--)
 	{
 		//generate the digit position's weight (ex. 1000)
 		weight = 1;
-		for(char i=digits-2; i>=-1; i--)
+		for(char i=digits-1; i; i--)
 			weight = (weight<<3) + (weight<<1);
 		
-		//determine how many of the weights fit into the number
-		for(curDigit=0; num>=weight; curDigit++)
+		//determine how many of the weights fit into the number (divide)
+		for(curDigit=0; (unsigned short)num>=weight; curDigit++)
 			num -= weight;
 		
 		//print the obtained digit
@@ -106,15 +107,17 @@ void dprintnum(int num, bool sign)
 		dputchar('0');
 }
 
-/*void dprintbin(void *data, unsigned short bytes)
+void dprintbin(char data)
 {
-	for(; bytes; bytes--)
-	{
-		//print the byte
-		for(unsigned char i=0x80; i; i>>=1)
-			dputchar((*data) & i? '1' : '0');
-		data++;
-	}
-}*/
+	for(unsigned char bitmask = 0x80; bitmask; bitmask>>=1)
+		dputchar(data&bitmask? '1' : '0');
+}
 
+void dprinthex(unsigned char data)
+{
+	unsigned char nibble = data>>4;
+	(nibble<10)? dputchar(nibble+'0') : dputchar(nibble+'A'-0xA);
+	nibble = data & 0x0F;
+	(nibble<10)? dputchar(nibble+'0') : dputchar(nibble+'A'-0xA);
+}
 
